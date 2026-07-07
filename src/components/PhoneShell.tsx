@@ -7,9 +7,11 @@ import { cn } from "@/lib/utils";
  */
 export function PhoneShell({
   children,
+  footer,
   className,
 }: {
   children: ReactNode;
+  footer?: ReactNode;
   className?: string;
 }) {
   return (
@@ -23,6 +25,7 @@ export function PhoneShell({
       >
         <StatusBar />
         <div className="flex flex-1 flex-col overflow-y-auto">{children}</div>
+        {footer}
       </div>
     </div>
   );
