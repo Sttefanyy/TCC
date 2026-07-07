@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrajetoRouteImport } from './routes/trajeto'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RotasRouteImport } from './routes/rotas'
 import { Route as RotaRouteImport } from './routes/rota'
 import { Route as RelatosRouteImport } from './routes/relatos'
@@ -23,6 +24,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TrajetoRoute = TrajetoRouteImport.update({
   id: '/trajeto',
   path: '/trajeto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RotasRoute = RotasRouteImport.update({
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/relatos': typeof RelatosRoute
   '/rota': typeof RotaRoute
   '/rotas': typeof RotasRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/trajeto': typeof TrajetoRoute
 }
 export interface FileRoutesByTo {
@@ -93,6 +100,7 @@ export interface FileRoutesByTo {
   '/relatos': typeof RelatosRoute
   '/rota': typeof RotaRoute
   '/rotas': typeof RotasRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/trajeto': typeof TrajetoRoute
 }
 export interface FileRoutesById {
@@ -106,6 +114,7 @@ export interface FileRoutesById {
   '/relatos': typeof RelatosRoute
   '/rota': typeof RotaRoute
   '/rotas': typeof RotasRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/trajeto': typeof TrajetoRoute
 }
 export interface FileRouteTypes {
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/relatos'
     | '/rota'
     | '/rotas'
+    | '/sitemap.xml'
     | '/trajeto'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/relatos'
     | '/rota'
     | '/rotas'
+    | '/sitemap.xml'
     | '/trajeto'
   id:
     | '__root__'
@@ -144,6 +155,7 @@ export interface FileRouteTypes {
     | '/relatos'
     | '/rota'
     | '/rotas'
+    | '/sitemap.xml'
     | '/trajeto'
   fileRoutesById: FileRoutesById
 }
@@ -157,6 +169,7 @@ export interface RootRouteChildren {
   RelatosRoute: typeof RelatosRoute
   RotaRoute: typeof RotaRoute
   RotasRoute: typeof RotasRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TrajetoRoute: typeof TrajetoRoute
 }
 
@@ -167,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/trajeto'
       fullPath: '/trajeto'
       preLoaderRoute: typeof TrajetoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rotas': {
@@ -245,8 +265,19 @@ const rootRouteChildren: RootRouteChildren = {
   RelatosRoute: RelatosRoute,
   RotaRoute: RotaRoute,
   RotasRoute: RotasRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TrajetoRoute: TrajetoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
