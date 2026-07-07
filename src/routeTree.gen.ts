@@ -15,6 +15,7 @@ import { Route as RotaRouteImport } from './routes/rota'
 import { Route as RelatosRouteImport } from './routes/relatos'
 import { Route as NovoRelatoRouteImport } from './routes/novo-relato'
 import { Route as NavegacaoRouteImport } from './routes/navegacao'
+import { Route as MapaRouteImport } from './routes/mapa'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TrajetoRoute = TrajetoRouteImport.update({
@@ -47,6 +48,11 @@ const NavegacaoRoute = NavegacaoRouteImport.update({
   path: '/navegacao',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MapaRoute = MapaRouteImport.update({
+  id: '/mapa',
+  path: '/mapa',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -55,6 +61,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/mapa': typeof MapaRoute
   '/navegacao': typeof NavegacaoRoute
   '/novo-relato': typeof NovoRelatoRoute
   '/relatos': typeof RelatosRoute
@@ -64,6 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/mapa': typeof MapaRoute
   '/navegacao': typeof NavegacaoRoute
   '/novo-relato': typeof NovoRelatoRoute
   '/relatos': typeof RelatosRoute
@@ -74,6 +82,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/mapa': typeof MapaRoute
   '/navegacao': typeof NavegacaoRoute
   '/novo-relato': typeof NovoRelatoRoute
   '/relatos': typeof RelatosRoute
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/mapa'
     | '/navegacao'
     | '/novo-relato'
     | '/relatos'
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/mapa'
     | '/navegacao'
     | '/novo-relato'
     | '/relatos'
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/mapa'
     | '/navegacao'
     | '/novo-relato'
     | '/relatos'
@@ -113,6 +125,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MapaRoute: typeof MapaRoute
   NavegacaoRoute: typeof NavegacaoRoute
   NovoRelatoRoute: typeof NovoRelatoRoute
   RelatosRoute: typeof RelatosRoute
@@ -165,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NavegacaoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mapa': {
+      id: '/mapa'
+      path: '/mapa'
+      fullPath: '/mapa'
+      preLoaderRoute: typeof MapaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -177,6 +197,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MapaRoute: MapaRoute,
   NavegacaoRoute: NavegacaoRoute,
   NovoRelatoRoute: NovoRelatoRoute,
   RelatosRoute: RelatosRoute,
