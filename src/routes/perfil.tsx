@@ -1,6 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
-  Settings,
   FileText,
   ShieldCheck,
   SlidersHorizontal,
@@ -10,9 +9,7 @@ import {
   ChevronRight,
   UserRound,
 } from "lucide-react";
-import { PhoneShell } from "@/components/PhoneShell";
-import { AppHeader } from "@/components/AppHeader";
-import { BottomNav } from "@/components/BottomNav";
+import { AppLayout, PageContainer } from "@/components/AppLayout";
 
 export const Route = createFileRoute("/perfil")({
   head: () => ({
@@ -27,44 +24,39 @@ const menu = [
   { icon: SlidersHorizontal, label: "Preferências", to: "/trajeto" },
   { icon: Bell, label: "Notificações", to: "/relatos" },
   { icon: Info, label: "Sobre o aplicativo", to: "/" },
-];
+] as const;
 
 function Perfil() {
   const navigate = useNavigate();
   return (
-    <PhoneShell footer={<BottomNav />}>
-      <AppHeader
-        title="Meu perfil"
-        back={false}
-        action={<Settings className="h-5 w-5 text-foreground" />}
-      />
-      <div className="flex flex-1 flex-col gap-6 px-4 py-5">
-        <div className="flex flex-col items-center text-center">
-          <div className="flex h-20 w-20 items-center justify-center rounded-full gradient-primary text-primary-foreground shadow-float">
-            <UserRound className="h-10 w-10" />
+    <AppLayout>
+      <PageContainer eyebrow="Conta" title="Meu perfil">
+        <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
+          <div className="flex flex-col items-center rounded-3xl border border-border bg-card p-8 text-center shadow-soft">
+            <div className="flex h-24 w-24 items-center justify-center rounded-full gradient-primary text-primary-foreground shadow-float">
+              <UserRound className="h-12 w-12" />
+            </div>
+            <p className="mt-4 text-xl font-bold text-foreground">Ana Silva</p>
+            <p className="text-sm text-muted-foreground">ana.silva@email.com</p>
+            <button
+              onClick={() => navigate({ to: "/" })}
+              className="mt-6 inline-flex items-center gap-2 rounded-xl border border-destructive/30 px-4 py-2.5 text-sm font-semibold text-destructive transition-colors hover:bg-destructive/5"
+            >
+              <LogOut className="h-4 w-4" /> Sair
+            </button>
           </div>
-          <p className="mt-3 text-lg font-bold text-foreground">Ana Silva</p>
-          <p className="text-sm text-muted-foreground">ana.silva@email.com</p>
-        </div>
 
-        <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-          {menu.map((m) => (
-            <Link key={m.label} to={m.to} className="flex items-center gap-3 px-4 py-4">
-              <m.icon className="h-5 w-5 text-primary" />
-              <span className="flex-1 text-sm text-foreground">{m.label}</span>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </Link>
-          ))}
+          <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+            {menu.map((m) => (
+              <Link key={m.label} to={m.to} className="flex items-center gap-3 px-6 py-5 hover:bg-muted/40">
+                <m.icon className="h-5 w-5 text-primary" />
+                <span className="flex-1 text-sm font-medium text-foreground">{m.label}</span>
+                <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              </Link>
+            ))}
+          </div>
         </div>
-
-        <button
-          onClick={() => navigate({ to: "/" })}
-          className="flex items-center gap-3 px-1 text-sm font-semibold text-destructive"
-        >
-          <LogOut className="h-5 w-5" />
-          Sair
-        </button>
-      </div>
-    </PhoneShell>
+      </PageContainer>
+    </AppLayout>
   );
 }
