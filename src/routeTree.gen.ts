@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrajetoRouteImport } from './routes/trajeto'
 import { Route as RotasRouteImport } from './routes/rotas'
+import { Route as RotaRouteImport } from './routes/rota'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TrajetoRoute = TrajetoRouteImport.update({
@@ -23,6 +24,11 @@ const RotasRoute = RotasRouteImport.update({
   path: '/rotas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RotaRoute = RotaRouteImport.update({
+  id: '/rota',
+  path: '/rota',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/rota': typeof RotaRoute
   '/rotas': typeof RotasRoute
   '/trajeto': typeof TrajetoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/rota': typeof RotaRoute
   '/rotas': typeof RotasRoute
   '/trajeto': typeof TrajetoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/rota': typeof RotaRoute
   '/rotas': typeof RotasRoute
   '/trajeto': typeof TrajetoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/rotas' | '/trajeto'
+  fullPaths: '/' | '/rota' | '/rotas' | '/trajeto'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/rotas' | '/trajeto'
-  id: '__root__' | '/' | '/rotas' | '/trajeto'
+  to: '/' | '/rota' | '/rotas' | '/trajeto'
+  id: '__root__' | '/' | '/rota' | '/rotas' | '/trajeto'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  RotaRoute: typeof RotaRoute
   RotasRoute: typeof RotasRoute
   TrajetoRoute: typeof TrajetoRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RotasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rota': {
+      id: '/rota'
+      path: '/rota'
+      fullPath: '/rota'
+      preLoaderRoute: typeof RotaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  RotaRoute: RotaRoute,
   RotasRoute: RotasRoute,
   TrajetoRoute: TrajetoRoute,
 }
