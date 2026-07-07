@@ -1,8 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SlidersHorizontal } from "lucide-react";
-import { PhoneShell } from "@/components/PhoneShell";
-import { AppHeader } from "@/components/AppHeader";
-import { BottomNav } from "@/components/BottomNav";
+import { AppLayout, PageContainer } from "@/components/AppLayout";
 import { MapMock } from "@/components/MapMock";
 
 export const Route = createFileRoute("/mapa")({
@@ -21,23 +18,27 @@ const levels = [
 
 function Mapa() {
   return (
-    <PhoneShell footer={<BottomNav />}>
-      <AppHeader
-        title="Mapa de Risco"
-        action={<SlidersHorizontal className="h-5 w-5 text-foreground" />}
-      />
-      <MapMock heat className="flex-1" />
-      <div className="border-t border-border bg-background px-5 py-4">
-        <p className="mb-2 text-xs font-semibold text-foreground">Nível de risco</p>
-        <div className="flex flex-wrap gap-x-5 gap-y-2">
-          {levels.map((l) => (
-            <span key={l.label} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: l.color }} />
-              {l.label}
-            </span>
-          ))}
+    <AppLayout>
+      <PageContainer
+        eyebrow="Mapa de risco"
+        title="Áreas com mais ocorrências"
+        description="Visualize a concentração de relatos e ocorrências pela cidade para planejar trajetos com mais cuidado."
+      >
+        <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-soft">
+          <MapMock heat className="h-[520px] w-full" />
+          <div className="border-t border-border px-6 py-5">
+            <p className="mb-3 text-sm font-semibold text-foreground">Nível de risco</p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              {levels.map((l) => (
+                <span key={l.label} className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <span className="h-3.5 w-3.5 rounded-full" style={{ backgroundColor: l.color }} />
+                  {l.label}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </PhoneShell>
+      </PageContainer>
+    </AppLayout>
   );
 }
