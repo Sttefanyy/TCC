@@ -13,6 +13,7 @@ import { Route as TrajetoRouteImport } from './routes/trajeto'
 import { Route as RotasRouteImport } from './routes/rotas'
 import { Route as RotaRouteImport } from './routes/rota'
 import { Route as RelatosRouteImport } from './routes/relatos'
+import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as NovoRelatoRouteImport } from './routes/novo-relato'
 import { Route as NavegacaoRouteImport } from './routes/navegacao'
 import { Route as MapaRouteImport } from './routes/mapa'
@@ -37,6 +38,11 @@ const RotaRoute = RotaRouteImport.update({
 const RelatosRoute = RelatosRouteImport.update({
   id: '/relatos',
   path: '/relatos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NovoRelatoRoute = NovoRelatoRouteImport.update({
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/mapa': typeof MapaRoute
   '/navegacao': typeof NavegacaoRoute
   '/novo-relato': typeof NovoRelatoRoute
+  '/perfil': typeof PerfilRoute
   '/relatos': typeof RelatosRoute
   '/rota': typeof RotaRoute
   '/rotas': typeof RotasRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/mapa': typeof MapaRoute
   '/navegacao': typeof NavegacaoRoute
   '/novo-relato': typeof NovoRelatoRoute
+  '/perfil': typeof PerfilRoute
   '/relatos': typeof RelatosRoute
   '/rota': typeof RotaRoute
   '/rotas': typeof RotasRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/mapa': typeof MapaRoute
   '/navegacao': typeof NavegacaoRoute
   '/novo-relato': typeof NovoRelatoRoute
+  '/perfil': typeof PerfilRoute
   '/relatos': typeof RelatosRoute
   '/rota': typeof RotaRoute
   '/rotas': typeof RotasRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/mapa'
     | '/navegacao'
     | '/novo-relato'
+    | '/perfil'
     | '/relatos'
     | '/rota'
     | '/rotas'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/mapa'
     | '/navegacao'
     | '/novo-relato'
+    | '/perfil'
     | '/relatos'
     | '/rota'
     | '/rotas'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/mapa'
     | '/navegacao'
     | '/novo-relato'
+    | '/perfil'
     | '/relatos'
     | '/rota'
     | '/rotas'
@@ -141,6 +153,7 @@ export interface RootRouteChildren {
   MapaRoute: typeof MapaRoute
   NavegacaoRoute: typeof NavegacaoRoute
   NovoRelatoRoute: typeof NovoRelatoRoute
+  PerfilRoute: typeof PerfilRoute
   RelatosRoute: typeof RelatosRoute
   RotaRoute: typeof RotaRoute
   RotasRoute: typeof RotasRoute
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/relatos'
       fullPath: '/relatos'
       preLoaderRoute: typeof RelatosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/novo-relato': {
@@ -221,6 +241,7 @@ const rootRouteChildren: RootRouteChildren = {
   MapaRoute: MapaRoute,
   NavegacaoRoute: NavegacaoRoute,
   NovoRelatoRoute: NovoRelatoRoute,
+  PerfilRoute: PerfilRoute,
   RelatosRoute: RelatosRoute,
   RotaRoute: RotaRoute,
   RotasRoute: RotasRoute,

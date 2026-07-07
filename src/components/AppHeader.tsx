@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 import { ArrowLeft, type LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -11,13 +11,13 @@ export function AppHeader({
   back?: boolean;
   action?: ReactNode;
 }) {
-  const navigate = useNavigate();
+  const router = useRouter();
   return (
     <header className="flex items-center gap-2 border-b border-border bg-background/95 px-4 py-3 backdrop-blur">
       {back ? (
         <button
           aria-label="Voltar"
-          onClick={() => navigate({ to: ".." as string })}
+          onClick={() => router.history.back()}
           className="flex h-9 w-9 items-center justify-center rounded-full text-foreground transition-colors hover:bg-muted"
         >
           <ArrowLeft className="h-5 w-5" />
