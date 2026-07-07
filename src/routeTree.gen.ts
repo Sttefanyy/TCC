@@ -16,6 +16,7 @@ import { Route as RelatosRouteImport } from './routes/relatos'
 import { Route as NovoRelatoRouteImport } from './routes/novo-relato'
 import { Route as NavegacaoRouteImport } from './routes/navegacao'
 import { Route as MapaRouteImport } from './routes/mapa'
+import { Route as EmergenciaRouteImport } from './routes/emergencia'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TrajetoRoute = TrajetoRouteImport.update({
@@ -53,6 +54,11 @@ const MapaRoute = MapaRouteImport.update({
   path: '/mapa',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmergenciaRoute = EmergenciaRouteImport.update({
+  id: '/emergencia',
+  path: '/emergencia',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -61,6 +67,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/emergencia': typeof EmergenciaRoute
   '/mapa': typeof MapaRoute
   '/navegacao': typeof NavegacaoRoute
   '/novo-relato': typeof NovoRelatoRoute
@@ -71,6 +78,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/emergencia': typeof EmergenciaRoute
   '/mapa': typeof MapaRoute
   '/navegacao': typeof NavegacaoRoute
   '/novo-relato': typeof NovoRelatoRoute
@@ -82,6 +90,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/emergencia': typeof EmergenciaRoute
   '/mapa': typeof MapaRoute
   '/navegacao': typeof NavegacaoRoute
   '/novo-relato': typeof NovoRelatoRoute
@@ -94,6 +103,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/emergencia'
     | '/mapa'
     | '/navegacao'
     | '/novo-relato'
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/emergencia'
     | '/mapa'
     | '/navegacao'
     | '/novo-relato'
@@ -114,6 +125,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/emergencia'
     | '/mapa'
     | '/navegacao'
     | '/novo-relato'
@@ -125,6 +137,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EmergenciaRoute: typeof EmergenciaRoute
   MapaRoute: typeof MapaRoute
   NavegacaoRoute: typeof NavegacaoRoute
   NovoRelatoRoute: typeof NovoRelatoRoute
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MapaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/emergencia': {
+      id: '/emergencia'
+      path: '/emergencia'
+      fullPath: '/emergencia'
+      preLoaderRoute: typeof EmergenciaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -197,6 +217,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EmergenciaRoute: EmergenciaRoute,
   MapaRoute: MapaRoute,
   NavegacaoRoute: NavegacaoRoute,
   NovoRelatoRoute: NovoRelatoRoute,
