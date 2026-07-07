@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrajetoRouteImport } from './routes/trajeto'
 import { Route as RotasRouteImport } from './routes/rotas'
 import { Route as RotaRouteImport } from './routes/rota'
+import { Route as NavegacaoRouteImport } from './routes/navegacao'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TrajetoRoute = TrajetoRouteImport.update({
@@ -29,6 +30,11 @@ const RotaRoute = RotaRouteImport.update({
   path: '/rota',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NavegacaoRoute = NavegacaoRouteImport.update({
+  id: '/navegacao',
+  path: '/navegacao',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/navegacao': typeof NavegacaoRoute
   '/rota': typeof RotaRoute
   '/rotas': typeof RotasRoute
   '/trajeto': typeof TrajetoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/navegacao': typeof NavegacaoRoute
   '/rota': typeof RotaRoute
   '/rotas': typeof RotasRoute
   '/trajeto': typeof TrajetoRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/navegacao': typeof NavegacaoRoute
   '/rota': typeof RotaRoute
   '/rotas': typeof RotasRoute
   '/trajeto': typeof TrajetoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/rota' | '/rotas' | '/trajeto'
+  fullPaths: '/' | '/navegacao' | '/rota' | '/rotas' | '/trajeto'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/rota' | '/rotas' | '/trajeto'
-  id: '__root__' | '/' | '/rota' | '/rotas' | '/trajeto'
+  to: '/' | '/navegacao' | '/rota' | '/rotas' | '/trajeto'
+  id: '__root__' | '/' | '/navegacao' | '/rota' | '/rotas' | '/trajeto'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  NavegacaoRoute: typeof NavegacaoRoute
   RotaRoute: typeof RotaRoute
   RotasRoute: typeof RotasRoute
   TrajetoRoute: typeof TrajetoRoute
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RotaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/navegacao': {
+      id: '/navegacao'
+      path: '/navegacao'
+      fullPath: '/navegacao'
+      preLoaderRoute: typeof NavegacaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  NavegacaoRoute: NavegacaoRoute,
   RotaRoute: RotaRoute,
   RotasRoute: RotasRoute,
   TrajetoRoute: TrajetoRoute,
