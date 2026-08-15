@@ -1,11 +1,17 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { ChevronDown, MapPin, CalendarClock } from "lucide-react";
 import { AppLayout, PageContainer } from "@/components/AppLayout";
 import { MapMock } from "@/components/MapMock";
 import { reportTypes } from "@/lib/data";
+import { getSession } from "@/lib/auth-session";
 
 export const Route = createFileRoute("/novo-relato")({
+  beforeLoad: async ({ location }) => {
+    const session = await getSession();
+    if (!session) throw redirect({ to: "/entrar", search: { redirect: location.href } });
+    return { session };
+  },
   head: () => ({
     meta: [{ title: "Novo relato — Caminho Seguro" }],
   }),
@@ -32,7 +38,9 @@ function NovoRelato() {
             }}
           >
             <label className="block">
-              <span className="mb-1.5 block text-sm font-medium text-foreground">Tipo de ocorrência</span>
+              <span className="mb-1.5 block text-sm font-medium text-foreground">
+                Tipo de ocorrência
+              </span>
               <div className="relative">
                 <select
                   value={type}
@@ -68,9 +76,13 @@ function NovoRelato() {
                 </div>
               </label>
               <label className="block">
-                <span className="mb-1.5 block text-sm font-medium text-foreground">Data e hora</span>
+                <span className="mb-1.5 block text-sm font-medium text-foreground">
+                  Data e hora
+                </span>
                 <div className="flex items-center gap-2 rounded-2xl border border-border bg-card px-4 py-3.5 shadow-soft">
-                  <span className="flex-1 text-sm font-medium text-foreground">12/05/2025 19:30</span>
+                  <span className="flex-1 text-sm font-medium text-foreground">
+                    12/05/2025 19:30
+                  </span>
                   <CalendarClock className="h-4 w-4 text-primary" />
                 </div>
               </label>

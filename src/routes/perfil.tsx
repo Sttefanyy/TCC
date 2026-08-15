@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
 import {
   FileText,
   ShieldCheck,
@@ -10,11 +10,16 @@ import {
   UserRound,
 } from "lucide-react";
 import { AppLayout, PageContainer } from "@/components/AppLayout";
+import { authClient } from "@/lib/auth-client";
+import { getSession } from "@/lib/auth-session";
 
 export const Route = createFileRoute("/perfil")({
-  head: () => ({
-    meta: [{ title: "Meu perfil — Caminho Seguro" }],
-  }),
+  beforeLoad: async ({ location }) => {
+    const session = await getSession();
+    if (!session) throw redirect({ to: "/entrar", search: { redirect: location.href } });
+    return { session };
+  },
+  head: () => ({ meta: [{ title: "Meu perfil — Caminho Seguro" }] }),
   component: Perfil,
 });
 
@@ -28,6 +33,13 @@ const menu = [
 
 function Perfil() {
   const navigate = useNavigate();
+  const { session } = Route.useRouteContext();
+
+  async function signOut() {
+    await authClient.signOut();
+    await navigate({ to: "/entrar" });
+  }
+
   return (
     <AppLayout>
       <PageContainer eyebrow="Conta" title="Meu perfil">
@@ -36,21 +48,24 @@ function Perfil() {
             <div className="flex h-24 w-24 items-center justify-center rounded-full gradient-primary text-primary-foreground shadow-float">
               <UserRound className="h-12 w-12" />
             </div>
-            <p className="mt-4 text-xl font-bold text-foreground">Ana Silva</p>
-            <p className="text-sm text-muted-foreground">ana.silva@email.com</p>
+            <p className="mt-4 text-xl font-bold text-foreground">{session.user.name}</p>
+            <p className="break-all text-sm text-muted-foreground">{session.user.email}</p>
             <button
-              onClick={() => navigate({ to: "/" })}
+              onClick={signOut}
               className="mt-6 inline-flex items-center gap-2 rounded-xl border border-destructive/30 px-4 py-2.5 text-sm font-semibold text-destructive transition-colors hover:bg-destructive/5"
             >
               <LogOut className="h-4 w-4" /> Sair
             </button>
           </div>
-
           <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
-            {menu.map((m) => (
-              <Link key={m.label} to={m.to} className="flex items-center gap-3 px-6 py-5 hover:bg-muted/40">
-                <m.icon className="h-5 w-5 text-primary" />
-                <span className="flex-1 text-sm font-medium text-foreground">{m.label}</span>
+            {menu.map((item) => (
+              <Link
+                key={item.label}
+                to={item.to}
+                className="flex items-center gap-3 px-6 py-5 hover:bg-muted/40"
+              >
+                <item.icon className="h-5 w-5 text-primary" />
+                <span className="flex-1 text-sm font-medium text-foreground">{item.label}</span>
                 <ChevronRight className="h-4 w-4 text-muted-foreground" />
               </Link>
             ))}

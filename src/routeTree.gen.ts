@@ -9,61 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TrajetoRouteImport } from './routes/trajeto'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as RotasRouteImport } from './routes/rotas'
-import { Route as RotaRouteImport } from './routes/rota'
-import { Route as RelatosRouteImport } from './routes/relatos'
-import { Route as PerfilRouteImport } from './routes/perfil'
-import { Route as NovoRelatoRouteImport } from './routes/novo-relato'
-import { Route as NavegacaoRouteImport } from './routes/navegacao'
-import { Route as MapaRouteImport } from './routes/mapa'
-import { Route as EmergenciaRouteImport } from './routes/emergencia'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EmergenciaRouteImport } from './routes/emergencia'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as MapaRouteImport } from './routes/mapa'
+import { Route as NavegacaoRouteImport } from './routes/navegacao'
+import { Route as NovoRelatoRouteImport } from './routes/novo-relato'
+import { Route as PerfilRouteImport } from './routes/perfil'
+import { Route as RelatosRouteImport } from './routes/relatos'
+import { Route as RotaRouteImport } from './routes/rota'
+import { Route as RotasRouteImport } from './routes/rotas'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TrajetoRouteImport } from './routes/trajeto'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
-const TrajetoRoute = TrajetoRouteImport.update({
-  id: '/trajeto',
-  path: '/trajeto',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RotasRoute = RotasRouteImport.update({
-  id: '/rotas',
-  path: '/rotas',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RotaRoute = RotaRouteImport.update({
-  id: '/rota',
-  path: '/rota',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RelatosRoute = RelatosRouteImport.update({
-  id: '/relatos',
-  path: '/relatos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PerfilRoute = PerfilRouteImport.update({
-  id: '/perfil',
-  path: '/perfil',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NovoRelatoRoute = NovoRelatoRouteImport.update({
-  id: '/novo-relato',
-  path: '/novo-relato',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NavegacaoRoute = NavegacaoRouteImport.update({
-  id: '/navegacao',
-  path: '/navegacao',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MapaRoute = MapaRouteImport.update({
-  id: '/mapa',
-  path: '/mapa',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmergenciaRoute = EmergenciaRouteImport.update({
@@ -71,15 +33,66 @@ const EmergenciaRoute = EmergenciaRouteImport.update({
   path: '/emergencia',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapaRoute = MapaRouteImport.update({
+  id: '/mapa',
+  path: '/mapa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NavegacaoRoute = NavegacaoRouteImport.update({
+  id: '/navegacao',
+  path: '/navegacao',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovoRelatoRoute = NovoRelatoRouteImport.update({
+  id: '/novo-relato',
+  path: '/novo-relato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RelatosRoute = RelatosRouteImport.update({
+  id: '/relatos',
+  path: '/relatos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RotaRoute = RotaRouteImport.update({
+  id: '/rota',
+  path: '/rota',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RotasRoute = RotasRouteImport.update({
+  id: '/rotas',
+  path: '/rotas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrajetoRoute = TrajetoRouteImport.update({
+  id: '/trajeto',
+  path: '/trajeto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/emergencia': typeof EmergenciaRoute
+  '/entrar': typeof EntrarRoute
   '/mapa': typeof MapaRoute
   '/navegacao': typeof NavegacaoRoute
   '/novo-relato': typeof NovoRelatoRoute
@@ -89,10 +102,12 @@ export interface FileRoutesByFullPath {
   '/rotas': typeof RotasRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/trajeto': typeof TrajetoRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/emergencia': typeof EmergenciaRoute
+  '/entrar': typeof EntrarRoute
   '/mapa': typeof MapaRoute
   '/navegacao': typeof NavegacaoRoute
   '/novo-relato': typeof NovoRelatoRoute
@@ -102,11 +117,13 @@ export interface FileRoutesByTo {
   '/rotas': typeof RotasRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/trajeto': typeof TrajetoRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/emergencia': typeof EmergenciaRoute
+  '/entrar': typeof EntrarRoute
   '/mapa': typeof MapaRoute
   '/navegacao': typeof NavegacaoRoute
   '/novo-relato': typeof NovoRelatoRoute
@@ -116,12 +133,14 @@ export interface FileRoutesById {
   '/rotas': typeof RotasRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/trajeto': typeof TrajetoRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/emergencia'
+    | '/entrar'
     | '/mapa'
     | '/navegacao'
     | '/novo-relato'
@@ -131,10 +150,12 @@ export interface FileRouteTypes {
     | '/rotas'
     | '/sitemap.xml'
     | '/trajeto'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/emergencia'
+    | '/entrar'
     | '/mapa'
     | '/navegacao'
     | '/novo-relato'
@@ -144,10 +165,12 @@ export interface FileRouteTypes {
     | '/rotas'
     | '/sitemap.xml'
     | '/trajeto'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
     | '/emergencia'
+    | '/entrar'
     | '/mapa'
     | '/navegacao'
     | '/novo-relato'
@@ -157,11 +180,13 @@ export interface FileRouteTypes {
     | '/rotas'
     | '/sitemap.xml'
     | '/trajeto'
+    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EmergenciaRoute: typeof EmergenciaRoute
+  EntrarRoute: typeof EntrarRoute
   MapaRoute: typeof MapaRoute
   NavegacaoRoute: typeof NavegacaoRoute
   NovoRelatoRoute: typeof NovoRelatoRoute
@@ -171,71 +196,16 @@ export interface RootRouteChildren {
   RotasRoute: typeof RotasRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TrajetoRoute: typeof TrajetoRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/trajeto': {
-      id: '/trajeto'
-      path: '/trajeto'
-      fullPath: '/trajeto'
-      preLoaderRoute: typeof TrajetoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rotas': {
-      id: '/rotas'
-      path: '/rotas'
-      fullPath: '/rotas'
-      preLoaderRoute: typeof RotasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rota': {
-      id: '/rota'
-      path: '/rota'
-      fullPath: '/rota'
-      preLoaderRoute: typeof RotaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/relatos': {
-      id: '/relatos'
-      path: '/relatos'
-      fullPath: '/relatos'
-      preLoaderRoute: typeof RelatosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/perfil': {
-      id: '/perfil'
-      path: '/perfil'
-      fullPath: '/perfil'
-      preLoaderRoute: typeof PerfilRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/novo-relato': {
-      id: '/novo-relato'
-      path: '/novo-relato'
-      fullPath: '/novo-relato'
-      preLoaderRoute: typeof NovoRelatoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/navegacao': {
-      id: '/navegacao'
-      path: '/navegacao'
-      fullPath: '/navegacao'
-      preLoaderRoute: typeof NavegacaoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mapa': {
-      id: '/mapa'
-      path: '/mapa'
-      fullPath: '/mapa'
-      preLoaderRoute: typeof MapaRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/emergencia': {
@@ -245,11 +215,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmergenciaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mapa': {
+      id: '/mapa'
+      path: '/mapa'
+      fullPath: '/mapa'
+      preLoaderRoute: typeof MapaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navegacao': {
+      id: '/navegacao'
+      path: '/navegacao'
+      fullPath: '/navegacao'
+      preLoaderRoute: typeof NavegacaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/novo-relato': {
+      id: '/novo-relato'
+      path: '/novo-relato'
+      fullPath: '/novo-relato'
+      preLoaderRoute: typeof NovoRelatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/relatos': {
+      id: '/relatos'
+      path: '/relatos'
+      fullPath: '/relatos'
+      preLoaderRoute: typeof RelatosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rota': {
+      id: '/rota'
+      path: '/rota'
+      fullPath: '/rota'
+      preLoaderRoute: typeof RotaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rotas': {
+      id: '/rotas'
+      path: '/rotas'
+      fullPath: '/rotas'
+      preLoaderRoute: typeof RotasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trajeto': {
+      id: '/trajeto'
+      path: '/trajeto'
+      fullPath: '/trajeto'
+      preLoaderRoute: typeof TrajetoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -258,6 +298,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EmergenciaRoute: EmergenciaRoute,
+  EntrarRoute: EntrarRoute,
   MapaRoute: MapaRoute,
   NavegacaoRoute: NavegacaoRoute,
   NovoRelatoRoute: NovoRelatoRoute,
@@ -267,7 +308,18 @@ const rootRouteChildren: RootRouteChildren = {
   RotasRoute: RotasRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TrajetoRoute: TrajetoRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
